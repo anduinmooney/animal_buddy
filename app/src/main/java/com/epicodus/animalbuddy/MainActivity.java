@@ -82,8 +82,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
+
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_search) {
 
         } else if (id == R.id.nav_saved) {

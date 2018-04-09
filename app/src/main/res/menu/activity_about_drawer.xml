@@ -24,11 +24,11 @@
 
     <item android:title="App Details">
         <menu>
-
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_event_note_black_24dp"
-                android:title="About 'Animal Buddy'" />
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="Home Page" />
+
             <item
                 android:id="@+id/nav_email"
                 android:icon="@drawable/ic_email_black_24dp"
@@ -38,3 +38,4 @@
     </item>
 
 </menu>
+
