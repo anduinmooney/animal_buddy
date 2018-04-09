@@ -88,13 +88,22 @@ public class AboutActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_search) {
 
+            Intent intent = new Intent(AboutActivity.this, SearchActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_saved) {
 
         } else if (id == R.id.nav_email) {
 
         } else if (id == R.id.nav_shelter) {
 
+            Intent intent = new Intent(AboutActivity.this, ShelterSearchActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_random) {
+
+            Intent intent = new Intent(AboutActivity.this, RandomSearchActivity.class);
+            startActivity(intent);
 
         }
 

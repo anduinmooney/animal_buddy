@@ -105,13 +105,24 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_search) {
 
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_saved) {
+
 
         } else if (id == R.id.nav_email) {
 
+
         } else if (id == R.id.nav_shelter) {
 
+            Intent intent = new Intent(MainActivity.this, ShelterSearchActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_random) {
+
+            Intent intent = new Intent(MainActivity.this, RandomSearchActivity.class);
+            startActivity(intent);
 
         }
 
