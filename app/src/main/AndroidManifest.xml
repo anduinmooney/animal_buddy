@@ -30,6 +30,10 @@
         <activity
             android:name=".RandomActivity"
             android:label="@string/title_activity_random"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShelterSearchActivity"
+            android:label="@string/title_activity_shelter_search"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
