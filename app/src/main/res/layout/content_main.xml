@@ -8,6 +8,15 @@
     tools:context="com.epicodus.animalbuddy.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/background" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
