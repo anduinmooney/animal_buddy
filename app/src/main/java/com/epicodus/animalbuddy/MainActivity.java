@@ -1,6 +1,7 @@
 package com.epicodus.animalbuddy;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,9 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView mAppNameTextView1;
+    private TextView mAppNameTextView2;
+    private TextView mAppPawIconView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAppNameTextView1 = (TextView) findViewById(R.id.appTitle1);
+        mAppNameTextView2 = (TextView) findViewById(R.id.appTitle2);
+        mAppPawIconView = (TextView) findViewById(R.id.pawIcon);
+
+        Typeface animalFont = Typeface.createFromAsset(getAssets(), "fonts/animal.otf");
+        Typeface pawFont = Typeface.createFromAsset(getAssets(), "fonts/paw.TTF");
+
+        mAppNameTextView1.setTypeface(animalFont);
+        mAppNameTextView2.setTypeface(animalFont);
+        mAppPawIconView.setTypeface(pawFont);
     }
 
     @Override

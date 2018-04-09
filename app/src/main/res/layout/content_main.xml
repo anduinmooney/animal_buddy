@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,10 +20,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/appTitle1"
+        android:text="Animal"
+        android:paddingTop="15dp"
+        android:textSize="50dp"
+        android:textColor="@color/colorTitle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pawIcon"
+        android:text="U"
+        android:paddingTop="15dp"
+        android:textSize="75dp"
+        android:layout_below="@+id/appTitle1"
+        android:textColor="@color/colorTitle"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/appTitle2"
+        android:text="Buddy"
+        android:paddingTop="15dp"
+        android:textSize="50dp"
+        android:textColor="@color/colorTitle"
+        android:layout_below="@+id/pawIcon"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
