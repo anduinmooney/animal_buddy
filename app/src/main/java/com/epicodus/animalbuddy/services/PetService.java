@@ -1,6 +1,8 @@
-package com.epicodus.animalbuddy;
+package com.epicodus.animalbuddy.services;
 
 
+
+import com.epicodus.animalbuddy.Constants;
 
 import okhttp3.Call;
 import okhttp3.Callback;

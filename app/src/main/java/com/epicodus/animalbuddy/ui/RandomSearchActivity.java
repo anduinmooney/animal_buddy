@@ -1,4 +1,4 @@
-package com.epicodus.animalbuddy;
+package com.epicodus.animalbuddy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class AboutActivity extends AppCompatActivity
+import com.epicodus.animalbuddy.R;
+
+public class RandomSearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_random);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,7 +58,7 @@ public class AboutActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.about, menu);
+        getMenuInflater().inflate(R.menu.random, menu);
         return true;
     }
 
@@ -84,11 +84,11 @@ public class AboutActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
-            Intent intent = new Intent(AboutActivity.this, MainActivity.class);
+            Intent intent = new Intent(RandomSearchActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_search) {
 
-            Intent intent = new Intent(AboutActivity.this, SearchActivity.class);
+            Intent intent = new Intent(RandomSearchActivity.this, SearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_saved) {
@@ -97,12 +97,12 @@ public class AboutActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_shelter) {
 
-            Intent intent = new Intent(AboutActivity.this, ShelterSearchActivity.class);
+            Intent intent = new Intent(RandomSearchActivity.this, ShelterSearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_random) {
 
-            Intent intent = new Intent(AboutActivity.this, RandomSearchActivity.class);
+            Intent intent = new Intent(RandomSearchActivity.this, RandomSearchActivity.class);
             startActivity(intent);
 
         }

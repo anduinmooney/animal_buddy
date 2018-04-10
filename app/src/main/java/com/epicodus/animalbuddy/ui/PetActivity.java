@@ -1,10 +1,10 @@
-package com.epicodus.animalbuddy;
+package com.epicodus.animalbuddy.ui;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,19 +14,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
+import com.epicodus.animalbuddy.R;
+import com.epicodus.animalbuddy.services.PetService;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+public class PetActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView mAppNameTextView1;
-    private TextView mAppNameTextView2;
-    private TextView mAppPawIconView;
+    public static final String TAG = PetActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,16 +54,30 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mAppNameTextView1 = (TextView) findViewById(R.id.appTitle1);
-        mAppNameTextView2 = (TextView) findViewById(R.id.appTitle2);
-        mAppPawIconView = (TextView) findViewById(R.id.pawIcon);
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("location");
+        getPets(location);
+    }
 
-        Typeface animalFont = Typeface.createFromAsset(getAssets(), "fonts/animal.otf");
-        Typeface pawFont = Typeface.createFromAsset(getAssets(), "fonts/paw.TTF");
+    private void getPets(String location) {
+        final PetService yelpService = new PetService();
+        yelpService.findPets(location, new Callback() {
 
-        mAppNameTextView1.setTypeface(animalFont);
-        mAppNameTextView2.setTypeface(animalFont);
-        mAppPawIconView.setTypeface(pawFont);
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -73,7 +93,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.pet, menu);
         return true;
     }
 
@@ -100,12 +120,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_about) {
 
-            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            Intent intent = new Intent(PetActivity.this, AboutActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_search) {
 
-            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            Intent intent = new Intent(PetActivity.this, SearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_saved) {
@@ -116,12 +136,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_shelter) {
 
-            Intent intent = new Intent(MainActivity.this, ShelterSearchActivity.class);
+            Intent intent = new Intent(PetActivity.this, ShelterSearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_random) {
 
-            Intent intent = new Intent(MainActivity.this, RandomSearchActivity.class);
+            Intent intent = new Intent(PetActivity.this, RandomSearchActivity.class);
             startActivity(intent);
 
         }
@@ -130,4 +150,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

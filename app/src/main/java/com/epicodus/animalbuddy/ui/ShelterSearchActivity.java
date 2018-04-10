@@ -1,4 +1,4 @@
-package com.epicodus.animalbuddy;
+package com.epicodus.animalbuddy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,27 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.epicodus.animalbuddy.R;
 
-public class SearchActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
-    @BindView(R.id.findPetsButton) Button mFindPetsButton;
-    @BindView(R.id.locationEditText) EditText mLocationEditText;
+public class ShelterSearchActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_shelter_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ButterKnife.bind(this);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,19 +43,6 @@ public class SearchActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        mFindPetsButton.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(v == mFindPetsButton) {
-            String location = mLocationEditText.getText().toString();
-            Intent intent = new Intent(SearchActivity.this, PetActivity.class);
-            intent.putExtra("location", location);
-            startActivity(intent);
-        }
     }
 
     @Override
@@ -80,7 +58,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.shelter_search, menu);
         return true;
     }
 
@@ -106,11 +84,11 @@ public class SearchActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
-            Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+            Intent intent = new Intent(ShelterSearchActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_search) {
 
-            Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+            Intent intent = new Intent(ShelterSearchActivity.this, SearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_saved) {
@@ -119,12 +97,12 @@ public class SearchActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_shelter) {
 
-            Intent intent = new Intent(SearchActivity.this, ShelterSearchActivity.class);
+            Intent intent = new Intent(ShelterSearchActivity.this, ShelterSearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_random) {
 
-            Intent intent = new Intent(SearchActivity.this, RandomSearchActivity.class);
+            Intent intent = new Intent(ShelterSearchActivity.this, RandomSearchActivity.class);
             startActivity(intent);
 
         }
@@ -133,6 +111,4 @@ public class SearchActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }
-

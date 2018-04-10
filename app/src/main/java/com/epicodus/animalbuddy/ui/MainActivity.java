@@ -1,6 +1,7 @@
-package com.epicodus.animalbuddy;
+package com.epicodus.animalbuddy.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,14 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-public class ShelterSearchActivity extends AppCompatActivity
+import com.epicodus.animalbuddy.R;
+
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView mAppNameTextView1;
+    private TextView mAppNameTextView2;
+    private TextView mAppPawIconView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shelter_search);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -41,6 +49,17 @@ public class ShelterSearchActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mAppNameTextView1 = (TextView) findViewById(R.id.appTitle1);
+        mAppNameTextView2 = (TextView) findViewById(R.id.appTitle2);
+        mAppPawIconView = (TextView) findViewById(R.id.pawIcon);
+
+        Typeface animalFont = Typeface.createFromAsset(getAssets(), "fonts/animal.otf");
+        Typeface pawFont = Typeface.createFromAsset(getAssets(), "fonts/paw.TTF");
+
+        mAppNameTextView1.setTypeface(animalFont);
+        mAppNameTextView2.setTypeface(animalFont);
+        mAppPawIconView.setTypeface(pawFont);
     }
 
     @Override
@@ -56,7 +75,7 @@ public class ShelterSearchActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.shelter_search, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -82,25 +101,29 @@ public class ShelterSearchActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
-            Intent intent = new Intent(ShelterSearchActivity.this, MainActivity.class);
+
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_search) {
 
-            Intent intent = new Intent(ShelterSearchActivity.this, SearchActivity.class);
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_saved) {
 
+
         } else if (id == R.id.nav_email) {
+
 
         } else if (id == R.id.nav_shelter) {
 
-            Intent intent = new Intent(ShelterSearchActivity.this, ShelterSearchActivity.class);
+            Intent intent = new Intent(MainActivity.this, ShelterSearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_random) {
 
-            Intent intent = new Intent(ShelterSearchActivity.this, RandomSearchActivity.class);
+            Intent intent = new Intent(MainActivity.this, RandomSearchActivity.class);
             startActivity(intent);
 
         }
