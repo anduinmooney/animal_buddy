@@ -6,13 +6,13 @@ package com.epicodus.animalbuddy.models;
 
 public class Pet {
     private String name;
-    private String age;
-    private String imageUrl;
-    
-    public Pet(String name, String age, String imageUrl) {
+//    private String age;
+//    private String imageUrl;
+
+    public Pet(String name) {
         this.name = name;
-        this.age = age;
-        this.imageUrl = imageUrl;
+//        this.age = age;
+//        this.imageUrl = imageUrl;
 
     }
 
@@ -20,11 +20,11 @@ public class Pet {
         return name;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
+//    public String getAge() {
+//        return age;
+//    }
+//
+//    public String getImageUrl() {
+//        return imageUrl;
+//    }
 }

@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.epicodus.animalbuddy.R;
+import com.epicodus.animalbuddy.models.Pet;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +29,8 @@ public class SearchActivity extends AppCompatActivity
 
     @BindView(R.id.findPetsButton) Button mFindPetsButton;
     @BindView(R.id.locationEditText) EditText mLocationEditText;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
