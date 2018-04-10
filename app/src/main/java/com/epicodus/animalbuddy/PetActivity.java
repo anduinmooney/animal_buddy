@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,27 +14,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.io.IOException;
 
-public class SearchActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
-    @BindView(R.id.findPetsButton) Button mFindPetsButton;
-    @BindView(R.id.locationEditText) EditText mLocationEditText;
+public class PetActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String TAG = PetActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_pet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ButterKnife.bind(this);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,18 +51,30 @@ public class SearchActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mFindPetsButton.setOnClickListener(this);
-
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("location");
+        getPets(location);
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v == mFindPetsButton) {
-            String location = mLocationEditText.getText().toString();
-            Intent intent = new Intent(SearchActivity.this, PetActivity.class);
-            intent.putExtra("location", location);
-            startActivity(intent);
-        }
+    private void getPets(String location) {
+        final PetService yelpService = new PetService();
+        yelpService.findPets(location, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -80,7 +90,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.pet, menu);
         return true;
     }
 
@@ -106,25 +116,29 @@ public class SearchActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_about) {
-            Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+
+            Intent intent = new Intent(PetActivity.this, AboutActivity.class);
             startActivity(intent);
+
         } else if (id == R.id.nav_search) {
 
-            Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+            Intent intent = new Intent(PetActivity.this, SearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_saved) {
 
+
         } else if (id == R.id.nav_email) {
+
 
         } else if (id == R.id.nav_shelter) {
 
-            Intent intent = new Intent(SearchActivity.this, ShelterSearchActivity.class);
+            Intent intent = new Intent(PetActivity.this, ShelterSearchActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_random) {
 
-            Intent intent = new Intent(SearchActivity.this, RandomSearchActivity.class);
+            Intent intent = new Intent(PetActivity.this, RandomSearchActivity.class);
             startActivity(intent);
 
         }
@@ -135,4 +149,3 @@ public class SearchActivity extends AppCompatActivity
     }
 
 }
-
