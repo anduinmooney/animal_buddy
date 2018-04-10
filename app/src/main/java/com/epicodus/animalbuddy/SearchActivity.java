@@ -13,6 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SearchActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +28,7 @@ public class SearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +47,7 @@ public class SearchActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -108,5 +115,28 @@ public class SearchActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public class SearchActivityClick extends AppCompatActivity implements View.OnClickListener {
+        @Bind(R.id.findPetsButton) Button mFindPetsButton;
+        @Bind(R.id.locationEditText) EditText mLocationEditText;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            ButterKnife.bind(this);
+
+            mFindPetsButton.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(v == mFindPetsButton) {
+                String location = mLocationEditText.getText().toString();
+                Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+                intent.putExtra("location", location);
+                startActivity(intent);
+            }
+        }
     }
 }
