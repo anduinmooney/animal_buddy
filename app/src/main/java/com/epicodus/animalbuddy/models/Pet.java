@@ -9,13 +9,13 @@ import java.util.List;
 
 public class Pet {
     private String name;
-//    private String age;
-//    private String imageUrl;
+    private String age;
+    private String imageUrl;
 
-    public Pet(String name) {
+    public Pet(String name, String age, String imageUrl) {
         this.name = name;
-//        this.age = age;
-//        this.imageUrl = imageUrl;
+        this.age = age;
+        this.imageUrl = imageUrl;
 
     }
 
@@ -23,11 +23,11 @@ public class Pet {
         return name;
     }
 
-//    public String getAge() {
-//        return age;
-//    }
-//
-//    public String getImageUrl() {
-//        return imageUrl;
-//    }
+    public String getAge() {
+        return age;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 }

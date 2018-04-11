@@ -101,6 +101,8 @@ public class PetActivity extends AppCompatActivity
 
                         for (Pet pet : pets) {
                             Log.d(TAG, "Name: " + pet.getName());
+                            Log.d(TAG, "Age: " + pet.getAge());
+                            Log.d(TAG, "ImageUrl: " + pet.getImageUrl());
                         }
 
                     }

@@ -55,29 +55,33 @@ public class PetService extends AppCompatActivity {
     }
 
     public ArrayList<Pet> processResults (Response response) {
-        ArrayList<Pet> dogList = new ArrayList<>();
+        ArrayList<Pet> petList = new ArrayList<>();
 
         try {
             String jsonData = response.body().string();
-            if (response.isSuccessful()) {
-                JSONObject dogJSON = new JSONObject(jsonData);
-                JSONArray dogListJSON = dogJSON.getJSONObject("petfinder").getJSONObject("pets").getJSONArray("pet");
-                for (int i = 0; i < dogListJSON.length(); i++) {
-                    JSONObject dogObjectJSON = dogListJSON.getJSONObject(i);
-                    // Get dog's name.
-                    String name = dogObjectJSON.getJSONObject("name").getString("$t");
 
-                    Pet dog = new Pet(name);
-                    dogList.add(dog);
+                JSONObject petJSON = new JSONObject(jsonData);
+                JSONArray petListJSON = petJSON.getJSONObject("petfinder").getJSONObject("pets").getJSONArray("pet");
+                for (int i = 0; i < petListJSON.length(); i++) {
+                    JSONObject petObjectJSON = petListJSON.getJSONObject(i);
+                    String name = petObjectJSON.getJSONObject("name").getString("$t");
+                    String age = petObjectJSON.getJSONObject("age").getString("$t");
+                    String imageUrl = petObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(0).getString("$t");
+
+                    Pet pet = new Pet(name, age, imageUrl);
+                    petList.add(pet);
                 }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        }
+
+        catch (IOException e){
             e.printStackTrace();
         }
-        return dogList;
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+        return petList;
     }
+
 }
 
 
