@@ -1,18 +1,21 @@
 package com.epicodus.animalbuddy.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Guest on 4/10/18.
  */
 
 public class Pet {
     private String name;
-//    private String age;
-//    private String imageUrl;
+    private String age;
+    private String imageUrl;
 
-    public Pet(String name) {
+    public Pet(String name, String age, String imageUrl) {
         this.name = name;
-//        this.age = age;
-//        this.imageUrl = imageUrl;
+        this.age = age;
+        this.imageUrl = imageUrl;
 
     }
 
@@ -20,11 +23,11 @@ public class Pet {
         return name;
     }
 
-//    public String getAge() {
-//        return age;
-//    }
-//
-//    public String getImageUrl() {
-//        return imageUrl;
-//    }
+    public String getAge() {
+        return age;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
 }
