@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,12 +19,14 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 
 import com.epicodus.animalbuddy.R;
+import com.epicodus.animalbuddy.adapters.PetListAdapter;
 import com.epicodus.animalbuddy.models.Pet;
 import com.epicodus.animalbuddy.services.PetService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -31,6 +35,9 @@ public class PetActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String TAG = PetActivity.class.getSimpleName();
+
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    private PetListAdapter mAdapter;
 
     public ArrayList<Pet> pets = new ArrayList<>();
 
@@ -42,13 +49,7 @@ public class PetActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,35 +76,20 @@ public class PetActivity extends AppCompatActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                try {
-//
-//                    if (response.isSuccessful()) {
-////                        Log.v(TAG, jsonData);
-//                        pets = petService.processResults(response);
-//
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+
                 pets = petService.processResults(response);
 
                 PetActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
-                        String[] petNames = new String[pets.size()];
-                        for (int i = 0; i < petNames.length; i++) {
-                            petNames[i] = pets.get(i).getName();
-                        }
+                        mAdapter = new PetListAdapter(getApplicationContext(), pets);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(PetActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
 
-                        ArrayAdapter adapter = new ArrayAdapter(PetActivity.this,
-                                android.R.layout.simple_list_item_1, petNames);
-
-                        for (Pet pet : pets) {
-                            Log.d(TAG, "Name: " + pet.getName());
-                            Log.d(TAG, "Age: " + pet.getAge());
-                            Log.d(TAG, "ImageUrl: " + pet.getImageUrl());
-                        }
 
                     }
                 });
