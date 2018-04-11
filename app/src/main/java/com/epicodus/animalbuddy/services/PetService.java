@@ -66,7 +66,7 @@ public class PetService extends AppCompatActivity {
                     JSONObject petObjectJSON = petListJSON.getJSONObject(i);
                     String name = petObjectJSON.getJSONObject("name").getString("$t");
                     String age = petObjectJSON.getJSONObject("age").getString("$t");
-                    String imageUrl = petObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(0).getString("$t");
+                    String imageUrl = petObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
 
                     Pet pet = new Pet(name, age, imageUrl);
                     petList.add(pet);
