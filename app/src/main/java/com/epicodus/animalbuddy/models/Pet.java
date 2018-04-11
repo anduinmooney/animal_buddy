@@ -1,5 +1,8 @@
 package com.epicodus.animalbuddy.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Guest on 4/10/18.
  */

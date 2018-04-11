@@ -74,38 +74,40 @@ public class PetActivity extends AppCompatActivity
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException  {
-                try {
-                    String jsonData = response.body().string();
-                    if (response.isSuccessful()) {
-                        Log.v(TAG, jsonData);
-                        pets = petService.processResults(response);
+            public void onResponse(Call call, Response response) throws IOException {
+//                try {
+//
+//                    if (response.isSuccessful()) {
+////                        Log.v(TAG, jsonData);
+//                        pets = petService.processResults(response);
+//
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                pets = petService.processResults(response);
 
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-//                pets = petService.processResults(response);
-//
-//                PetActivity.this.runOnUiThread(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-//                        String[] petNames = new String[pets.size()];
-//                        for (int i = 0; i < petNames.length; i++) {
-//                            petNames[i] = pets.get(i).getName();
-//                        }
-//
-//                        ArrayAdapter adapter = new ArrayAdapter(PetActivity.this,
-//                                android.R.layout.simple_list_item_1, petNames);
-//
-//                        for (Pet pet : pets) {
-//                            Log.d(TAG, "Name: " + pet.getName());
-//                        }
+                PetActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String[] petNames = new String[pets.size()];
+                        for (int i = 0; i < petNames.length; i++) {
+                            petNames[i] = pets.get(i).getName();
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter(PetActivity.this,
+                                android.R.layout.simple_list_item_1, petNames);
+
+                        for (Pet pet : pets) {
+                            Log.d(TAG, "Name: " + pet.getName());
+                        }
 
                     }
                 });
             }
+        });
+    }
 
     @Override
     public void onBackPressed() {
