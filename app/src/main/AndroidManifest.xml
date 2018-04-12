@@ -40,8 +40,12 @@
         <activity
             android:name=".ui.PetActivity"
             android:label="@string/title_activity_pet"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".services.PetService" />
+        <activity
+            android:name=".ui.PetDetailActivity"
+            android:label="@string/title_activity_pet_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".services.PetService"></activity>
     </application>
 
 </manifest>
