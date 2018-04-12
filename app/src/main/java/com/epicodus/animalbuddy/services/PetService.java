@@ -51,7 +51,7 @@ public class PetService extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_pet);
+        setContentView(R.layout.activity_pet);
     }
 
     public ArrayList<Pet> processResults (Response response) {
