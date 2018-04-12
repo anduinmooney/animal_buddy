@@ -16,7 +16,8 @@
         android:layout_centerVertical="true"
         android:padding="5dp"
         android:hint="Enter Zip Code"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:maxLength="5"/>
 
     <Button
         android:layout_width="match_parent"
