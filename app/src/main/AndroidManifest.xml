@@ -45,7 +45,8 @@
         <activity
             android:name=".ui.PetDetailActivity"
             android:label="@string/title_activity_pet_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.ShelterActivity"></activity>
     </application>
 
 </manifest>
