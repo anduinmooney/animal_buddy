@@ -55,7 +55,7 @@ public class PetActivity extends AppCompatActivity {
 
     private void getPets(String location) {
         final PetService petService = new PetService();
-        petService.findPets(location, new Callback() {
+        PetService.findPets(location, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {

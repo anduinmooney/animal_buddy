@@ -3,6 +3,8 @@ package com.epicodus.animalbuddy.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.epicodus.animalbuddy.R;
+import com.epicodus.animalbuddy.adapters.ShelterListAdapter;
 import com.epicodus.animalbuddy.models.Shelter;
 import com.epicodus.animalbuddy.services.ShelterService;
 
@@ -29,6 +32,10 @@ public class ShelterActivity extends AppCompatActivity {
 
     public static final String TAG = ShelterActivity.class.getSimpleName();
 
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+
+    private ShelterListAdapter mAdapter;
+
     public ArrayList<Shelter> shelters = new ArrayList<>();
 
 
@@ -39,20 +46,15 @@ public class ShelterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shelter);
         ButterKnife.bind(this);
 
-//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, shelter);
-//        mListView.setAdapter(adapter);
-
-
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
-
 
         getShelters(location);
     }
 
     private void getShelters(String location) {
         final ShelterService shelterService = new ShelterService();
-        shelterService.findShelters(location, new Callback() {
+        ShelterService.findShelters(location, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -66,13 +68,12 @@ public class ShelterActivity extends AppCompatActivity {
                 ShelterActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String[] shelterNames = new String[shelters.size()];
-                        for (int i = 0; i < shelterNames.length; i++) {
-                            shelterNames[i] = shelters.get(i).getName();
-                        }
-
-                        ArrayAdapter adapter = new ArrayAdapter(ShelterActivity.this,
-                                android.R.layout.simple_list_item_1, shelterNames);
+                        mAdapter = new ShelterListAdapter(getApplicationContext(), shelters);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(ShelterActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
 
                         for (Shelter shelter : shelters) {
                             Log.d(TAG, "Name: " + shelter.getName());
