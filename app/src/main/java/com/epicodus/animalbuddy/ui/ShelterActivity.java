@@ -12,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.epicodus.animalbuddy.R;
+import com.epicodus.animalbuddy.models.Shelter;
 import com.epicodus.animalbuddy.services.ShelterService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 import butterknife.BindView;
@@ -26,6 +28,8 @@ import okhttp3.Response;
 public class ShelterActivity extends AppCompatActivity {
 
     public static final String TAG = ShelterActivity.class.getSimpleName();
+
+    public ArrayList<Shelter> shelters = new ArrayList<>();
 
 
 
@@ -57,12 +61,30 @@ public class ShelterActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    String jsonData = response.body().string();
-                    Log.v(TAG, jsonData);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                shelters = shelterService.processResults(response);
+
+                ShelterActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String[] shelterNames = new String[shelters.size()];
+                        for (int i = 0; i < shelterNames.length; i++) {
+                            shelterNames[i] = shelters.get(i).getName();
+                        }
+
+                        ArrayAdapter adapter = new ArrayAdapter(ShelterActivity.this,
+                                android.R.layout.simple_list_item_1, shelterNames);
+
+                        for (Shelter shelter : shelters) {
+                            Log.d(TAG, "Name: " + shelter.getName());
+                            Log.d(TAG, "Phone: " + shelter.getPhone());
+                            Log.d(TAG, "Email: " + shelter.getEmail());
+                            Log.d(TAG, "State: " + shelter.getState());
+                            Log.d(TAG, "City: " + shelter.getCity());
+                            Log.d(TAG, "Zip: " + shelter.getZip());
+                        }
+
+                    }
+                });
             }
         });
     }

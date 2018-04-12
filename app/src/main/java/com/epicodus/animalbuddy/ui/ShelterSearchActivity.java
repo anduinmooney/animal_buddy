@@ -13,11 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.epicodus.animalbuddy.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ShelterSearchActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    @BindView(R.id.findSheltersButton) Button mFindSheltersButton;
+    @BindView(R.id.locationEditText) EditText mLocationEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,7 @@ public class ShelterSearchActivity extends AppCompatActivity
         setContentView(R.layout.activity_shelter_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
 
 
@@ -36,6 +44,18 @@ public class ShelterSearchActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mFindSheltersButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == mFindSheltersButton) {
+            String location = mLocationEditText.getText().toString();
+            Intent intent = new Intent(ShelterSearchActivity.this, ShelterActivity.class);
+            intent.putExtra("location", location);
+            startActivity(intent);
+        }
     }
 
     @Override
